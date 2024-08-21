@@ -31,6 +31,7 @@ require 'options'
 -- load vim basic autocommands
 require 'basicAutocommands'
 
+-- load lazy.vim as Plugin Manager
 require 'lazyInstallation'
 
 -- [[ Configure and install plugins ]]
