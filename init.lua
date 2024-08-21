@@ -126,6 +126,12 @@ require('lazy').setup({
       }
     end,
   },
+  {
+    'tpope/vim-fugitive',
+    config = function()
+      -- Hier kannst du zusätzliche Konfigurationen hinzufügen
+    end,
+  },
 
   -- NOTE: Plugins can specify dependencies.
   --
