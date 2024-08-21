@@ -1,4 +1,4 @@
---globals.lua
+-- Set golbal vim configuration
 --
 -- Set <space> as the leader key
 -- See `:help mapleader`
