@@ -107,6 +107,8 @@ require('lazy').setup({
       }
     end,
   },
+
+  -- Github Copilot
   {
     'github/copilot.vim',
     config = function()
@@ -118,6 +120,16 @@ require('lazy').setup({
     'tpope/vim-fugitive',
     config = function()
       -- Hier kannst du zusätzliche Konfigurationen hinzufügen
+    end,
+  },
+  -- Auto pairs
+  {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup {
+        disable_filetype = { 'TelescopePrompt', 'vim' },
+        check_ts = true, -- Enable treesitter integration
+      }
     end,
   },
 

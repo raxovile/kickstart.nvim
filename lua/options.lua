@@ -26,6 +26,15 @@ end)
 -- Enable break indent
 vim.opt.breakindent = true
 
+-- Aktiviert die automatische Einrückung basierend auf der vorherigen Zeile
+vim.opt.autoindent = true
+
+-- Aktiviert intelligente Einrückung für Programmiersprachen (z.B. C)
+vim.opt.smartindent = true
+
+-- Aktiviert C-spezifische Einrückungsregeln
+vim.opt.cindent = true
+
 -- Save undo history
 vim.opt.undofile = true
 
