@@ -1,7 +1,3 @@
-# Microsoft C# Coding Conventions
-# This file is designed to adhere to the common coding standards used in
-# Microsoft's C# projects.
-
 BasedOnStyle: Microsoft
 
 # Use 4 spaces for indentation
@@ -9,10 +5,10 @@ IndentWidth: 4
 TabWidth: 4
 UseTab: Never
 
-# Column limit for line length (Microsoft recommends 120, but some teams use 80)
-ColumnLimit: 300
+# Column limit for line length
+ColumnLimit: 120
 
-# Keep the opening brace on the same line for namespaces, classes, methods, etc.
+# Brace wrapping style
 BraceWrapping:
   AfterClass: false
   AfterControlStatement: false
@@ -26,10 +22,10 @@ BraceWrapping:
   BeforeLambdaBody: false
   IndentBraces: false
 
-# Indent switch case labels with one level of indentation
+# Indent switch case labels
 IndentCaseLabels: true
 
-# Place a space between operators and operands
+# Spacing options
 SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: true
 SpaceInEmptyParentheses: false
@@ -43,13 +39,7 @@ SpaceAfterLogicalNot: false
 # Align trailing comments
 AlignTrailingComments: true
 
-# Remove trailing whitespace
-TrimTrailingWhitespace: true
-
-# Insert final newline at end of file
-InsertFinalNewline: true
-
-# Allow short functions to be inlined in a single line
+# Allow short functions and statements on a single line
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
@@ -57,8 +47,6 @@ AllowShortLoopsOnASingleLine: true
 # Control the placement of commas in lists
 BinPackArguments: false
 BinPackParameters: false
-BinPackArgumentsThatFit: true
-BinPackParametersThatFit: true
 PenaltyBreakBeforeFirstCallParameter: 19
 PenaltyBreakComment: 60
 PenaltyBreakString: 20
@@ -66,9 +54,6 @@ PenaltyBreakTemplateDeclaration: 10
 
 # Sort #includes
 SortIncludes: false
-
-# Additional C# specific formatting options
-CSharpNamespaceIndentation: None
 
 # Continuation indentation
 ContinuationIndentWidth: 4
