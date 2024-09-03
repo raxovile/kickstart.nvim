@@ -10,7 +10,7 @@ TabWidth: 4
 UseTab: Never
 
 # Column limit for line length (Microsoft recommends 120, but some teams use 80)
-ColumnLimit: 120
+ColumnLimit: 300
 
 # Keep the opening brace on the same line for namespaces, classes, methods, etc.
 BraceWrapping:
