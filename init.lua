@@ -545,6 +545,7 @@ require('lazy').setup({
         --
         -- Add C# formatter
         cs = { 'clang_format' },
+        extra_args = { '--style=file', '--assume-filename=' .. vim.fn.stdpath 'config' .. '/.clang-format' },
       },
     },
   },
