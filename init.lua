@@ -141,6 +141,19 @@ require('lazy').setup({
       }
     end,
   },
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      local null_ls = require 'null-ls'
+      null_ls.setup {
+        sources = {
+          null_ls.builtins.formatting.clang_format.with {
+            filetypes = { 'c', 'cpp', 'cs' }, -- Hier die gewünschten Sprachen
+          },
+        },
+      }
+    end,
+  },
 
   -- NOTE: Plugins can specify dependencies.
   --
@@ -529,6 +542,9 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        --
+        -- Add C# formatter
+        cs = { 'clang_format' },
       },
     },
   },

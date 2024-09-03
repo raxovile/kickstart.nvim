@@ -121,3 +121,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- Auto-Formatierung bei jedem Speichern
+vim.cmd [[autocmd BufWritePre *.cs lua vim.lsp.buf.format()]]
