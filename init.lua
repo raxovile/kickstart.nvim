@@ -39,7 +39,7 @@ require 'lazyInstallation'
 require('lazy').setup({
   { 'tpope/vim-sleuth' },
   { 'folke/lazy.nvim' },
-  { 'BurntSushi/ripgrep'}
+  { 'BurntSushi/ripgrep' },
   { 'nvim-lua/plenary.nvim' },
   { 'mfussenegger/nvim-dap' },
   { 'rcarriga/nvim-dap-ui' },
