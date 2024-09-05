@@ -35,37 +35,18 @@ require 'basicAutocommands'
 require 'lazyInstallation'
 
 -- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
--- NOTE: Here is where you install your plugins.
+
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  { 'tpope/vim-sleuth' }, -- Detect tabstop and shiftwidth automatically
+  { 'tpope/vim-sleuth' },
   { 'folke/lazy.nvim' },
   { 'nvim-lua/plenary.nvim' },
   { 'mfussenegger/nvim-dap' },
   { 'rcarriga/nvim-dap-ui' },
+  { 'tpope/vim-fugitive' },
   { 'KaiWalter/azure-functions.nvim' },
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
-  -- Use `opts = {}` to force a plugin to be loaded.
-  --
-
-  -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
-  --    require('gitsigns').setup({ ... })
-  --
-  -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
+  { 'dense-analysis/ale' },
+  { 'Bilal2453/luvit-meta', lazy = true },
+  {
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
@@ -77,23 +58,7 @@ require('lazy').setup({
       },
     },
   },
-
-  -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
-  --
-  -- This is often very useful to both group configuration, as well as handle
-  -- lazy loading plugins that don't need to be loaded immediately at startup.
-  --
-  -- For example, in the following configuration, we use:
-  --  event = 'VimEnter'
-  --
-  -- which loads which-key before all the UI elements are loaded. Events can be
-  -- normal autocommands events (`:help autocmd-events`).
-  --
-  -- Then, because we use the `config` key, the configuration only runs
-  -- after the plugin has been loaded:
-  --  config = function() ... end
-
-  { -- Useful plugin to show you pending keybinds.
+  {
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
@@ -117,7 +82,6 @@ require('lazy').setup({
     cmd = 'Prettier',
     ft = { 'javascript', 'typescript', 'css', 'scss', 'json', 'markdown' },
   },
-  -- Github Copilot
   {
     'github/copilot.vim',
     config = function()
@@ -125,13 +89,6 @@ require('lazy').setup({
       vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("<CR>")', { silent = true, expr = true })
     end,
   },
-  {
-    'tpope/vim-fugitive',
-    config = function()
-      -- Hier kannst du zusätzliche Konfigurationen hinzufügen
-    end,
-  },
-  -- Auto pairs
   {
     'windwp/nvim-autopairs',
     config = function()
@@ -154,14 +111,6 @@ require('lazy').setup({
       }
     end,
   },
-
-  -- NOTE: Plugins can specify dependencies.
-  --
-  -- The dependencies are proper plugin specifications as well - anything
-  -- you do for a plugin at the top level, you can do for a dependency.
-  --
-  -- Use the `dependencies` key to specify the dependencies of a particular plugin
-
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
@@ -295,7 +244,6 @@ require('lazy').setup({
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -799,8 +747,6 @@ require('lazy').setup({
 })
 
 require 'dap-config'
-
-local dap = require 'dap'
 
 local dap = require 'dap'
 vim.api.nvim_set_keymap('n', '<F5>', "<Cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true })
