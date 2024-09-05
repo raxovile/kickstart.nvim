@@ -767,3 +767,17 @@ vim.api.nvim_set_keymap('n', '<Leader>dl', "<Cmd>lua require'dap'.run_last()<CR>
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+--
+--
+local nvim_lsp = require 'lspconfig'
+
+nvim_lsp.omnisharp.setup {
+  cmd = { 'G:/tools/omnisharp-roslyn-1.39.12/run', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+  on_attach = function(client, bufnr)
+    require('lsp_signature').on_attach()
+  end,
+  filetypes = { 'cs' },
+  root_dir = nvim_lsp.util.root_pattern '*.sln',
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+}
