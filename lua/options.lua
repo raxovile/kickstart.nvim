@@ -122,5 +122,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Auto-Formatierung bei jedem Speichern
+-- Auto-Formatierung bei jedem Speichern for c#
 vim.cmd [[autocmd BufWritePre *.cs lua vim.lsp.buf.format()]]
+
+-- Prüfe, ob vim-prettier bereits geladen ist
+vim.cmd [[
+  augroup PrettierOnSave
+    autocmd!
+    autocmd BufWritePre *.json,*.js,*.ts,*.css,*.scss,*.md PrettierAsync
+  augroup END
+]]
