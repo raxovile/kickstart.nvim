@@ -772,8 +772,10 @@ vim.api.nvim_set_keymap('n', '<Leader>dl', "<Cmd>lua require'dap'.run_last()<CR>
 --
 local nvim_lsp = require 'lspconfig'
 
+local tools_path = os.getenv 'TOOLS'
+
 nvim_lsp.omnisharp.setup {
-  cmd = { 'G:/tools/omnisharp-roslyn-1.39.12/run', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+  cmd = { tools_path .. '/omnisharp-roslyn-1.39.12/run', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
   on_attach = function(client, bufnr)
     require('lsp_signature').on_attach()
   end,
