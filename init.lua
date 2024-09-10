@@ -774,12 +774,12 @@ local nvim_lsp = require 'lspconfig'
 
 local tools_path = os.getenv 'TOOLS'
 
-nvim_lsp.omnisharp.setup {
-  cmd = { tools_path .. '/omnisharp-roslyn-1.39.12/run', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
-  on_attach = function(client, bufnr)
-    require('lsp_signature').on_attach()
-  end,
-  filetypes = { 'cs' },
-  root_dir = nvim_lsp.util.root_pattern '*.sln',
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
-}
+-- nvim_lsp.omnisharp.setup {
+-- cmd = { tools_path .. '/omnisharp-roslyn-1.39.12/OmniSharp.exe', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+-- on_attach = function(client, bufnr)
+-- require('lsp_signature').on_attach()
+-- end,
+-- filetypes = { 'cs' },
+-- root_dir = nvim_lsp.util.root_pattern '*.sln',
+-- capabilities = require('cmp_nvim_lsp').default_capabilities(),
+-- }
