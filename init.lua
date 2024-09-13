@@ -390,7 +390,7 @@ require('lazy').setup({
         },
 
         omnisharp = {
-          cmd = { 'C:/Users/RaphaelBrand/tools/omnisharp-roslyn-1.39.12/build/OmniSharp.dll', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+          cmd = { 'C:/Users/RaphaelBrand/tools/omnisharp/OmniSharp.exe', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
           filetypes = { 'cs' },
           root_dir = require('lspconfig').util.root_pattern('*.sln', '*.csproj'),
           capabilities = capabilities,
