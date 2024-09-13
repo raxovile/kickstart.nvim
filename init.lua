@@ -309,6 +309,9 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
+          -- Add Workspace Diagnostics
+          map('<leader>wd', vim.diagnostic.setloclist, '[W]orkspace [D]iagnostics')
+
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -385,17 +388,66 @@ require('lazy').setup({
             },
           },
         },
+
         omnisharp = {
-          cmd = { 'C:/Users/RaphaelBrand/tools/omnisharp-roslyn-1.39.12/build', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+          cmd = { 'C:/Users/RaphaelBrand/tools/omnisharp-roslyn-1.39.12/build/OmniSharp.dll', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
           filetypes = { 'cs' },
           root_dir = require('lspconfig').util.root_pattern('*.sln', '*.csproj'),
           capabilities = capabilities,
           on_attach = function(client, bufnr)
             require('lsp-status').on_attach(client, bufnr)
+
+            -- Fix Imports / Organize Imports (e.g., 'using' statements)
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              'n',
+              '<leader>oi',
+              '<cmd>lua vim.lsp.buf.formatting_sync()<CR>',
+              { noremap = true, silent = true, desc = 'Organize Imports' }
+            )
+
+            -- Custom Keymaps for OmniSharp features
+            vim.api.nvim_buf_set_keymap(
+              bufnr,
+              'n',
+              '<leader>fi',
+              '<cmd>lua vim.lsp.buf.code_action()<CR>',
+              { noremap = true, silent = true, desc = '[F]ix [I]ssues' }
+            )
           end,
+
+          -- Enable roslyn analyzers and semantic tokens
+          enable_roslyn_analyzers = true, -- Enable Roslyn analyzers to detect issues in the solution
+          organize_imports_on_format = true, -- Automatically organize imports on formatting
+          enable_import_completion = true, -- Provide completions for `using` statements
+          semantic_tokens = true, -- Enable semantic highlighting
         },
       }
 
+      -- nvim-cmp Setup für OmniSharp und LSP-basierte Completion
+      local cmp = require 'cmp'
+      cmp.setup {
+        snippet = {
+          expand = function(args)
+            vim.fn['vsnip#anonymous'](args.body)
+          end,
+        },
+        mapping = {
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<CR>'] = cmp.mapping.confirm { select = true }, -- Autocompletion bestätigen
+        },
+        sources = cmp.config.sources {
+          { name = 'nvim_lsp' },
+          { name = 'vsnip' }, -- Falls du Snippets benutzt
+        },
+      }
+
+      -- Diagnostic Einstellungen für Code Fehler und Probleme
+      vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = true, -- Zeigt Fehler als Overlay
+        signs = true,
+        update_in_insert = false,
+      })
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
       --  other tools, you can run
@@ -740,15 +792,3 @@ vim.api.nvim_set_keymap('n', '<Leader>dl', "<Cmd>lua require'dap'.run_last()<CR>
 --
 --
 local nvim_lsp = require 'lspconfig'
-
-local tools_path = os.getenv 'TOOLS'
-
--- nvim_lsp.omnisharp.setup {
--- cmd = { tools_path .. '/omnisharp-roslyn-1.39.12/OmniSharp.exe', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
--- on_attach = function(client, bufnr)
--- require('lsp_signature').on_attach()
--- end,
--- filetypes = { 'cs' },
--- root_dir = nvim_lsp.util.root_pattern '*.sln',
--- capabilities = require('cmp_nvim_lsp').default_capabilities(),
--- }
