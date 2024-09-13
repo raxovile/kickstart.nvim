@@ -389,8 +389,9 @@ require('lazy').setup({
           },
         },
 
+        local toolPath = os.getenv('TOOLS')
         omnisharp = {
-          cmd = { 'C:/Users/RaphaelBrand/tools/omnisharp/OmniSharp.exe', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
+          cmd = { toolPath .. 'omnisharp/OmniSharp.exe', '--languageserver', '--hostPID', tostring(vim.fn.getpid()) },
           filetypes = { 'cs' },
           root_dir = require('lspconfig').util.root_pattern('*.sln', '*.csproj'),
           capabilities = capabilities,
