@@ -41,6 +41,7 @@ require('lazy').setup({
   { 'folke/lazy.nvim' },
   { 'BurntSushi/ripgrep' },
   { 'nvim-lua/plenary.nvim' },
+  { 'nvim-lua/lsp-status.nvim' },
   {
     'mfussenegger/nvim-dap',
     config = function()
@@ -406,6 +407,8 @@ require('lazy').setup({
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
       local tools_path = os.getenv 'TOOLS'
+      local lsp_status = require 'lsp-status'
+      lsp_status.register_progress()
       local servers = {
         -- clangd = {},
         -- gopls = {},
