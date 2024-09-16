@@ -47,7 +47,7 @@ require('lazy').setup({
       local dap = require 'dap'
 
       -- Halber Pfad zu den Tools
-      local tools_base_path = '/path/to'
+      local tools_base_path = os.getenv 'TOOLS'
 
       -- Konfiguration für .NET (netcoredbg)
       dap.adapters.coreclr = {
