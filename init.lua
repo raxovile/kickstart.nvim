@@ -153,7 +153,7 @@ require('lazy').setup({
       null_ls.setup {
         sources = {
           null_ls.builtins.formatting.clang_format.with {
-            filetypes = { 'c', 'cpp', 'cs' }, -- Hier die gewünschten Sprachen
+            filetypes = { 'c', 'cpp', 'cs', 'typescript', 'javascript', 'json' }, -- Hier die gewünschten Sprachen
           },
         },
       }
