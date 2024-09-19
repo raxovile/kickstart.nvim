@@ -136,13 +136,3 @@ vim.cmd [[
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldlevelstart = 99
-
-vim.api.nvim_exec(
-  [[
-  augroup OpenFolds
-    autocmd!
-    autocmd BufReadPost,FileReadPost * normal zR
-  augroup END
-]],
-  false
-)
