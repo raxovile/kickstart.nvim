@@ -132,3 +132,6 @@ vim.cmd [[
     autocmd BufWritePre *.json,*.js,*.ts,*.css,*.scss,*.md PrettierAsync
   augroup END
 ]]
+
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
