@@ -41,6 +41,7 @@ require('lazy').setup({
   { 'folke/lazy.nvim' },
   { 'BurntSushi/ripgrep' },
   { 'nvim-lua/plenary.nvim' },
+  { 'PProvost/vim-ps1' },
   { 'nvim-lua/lsp-status.nvim' },
   {
     'mfussenegger/nvim-dap',
@@ -63,6 +64,30 @@ require('lazy').setup({
           request = 'launch',
           program = function()
             return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Debug/net6.0/', 'file')
+          end,
+        },
+      }
+
+      -- Konfiguration für PowerShell (PSES - PowerShell Editor Services)
+      dap.adapters.powershell = {
+        type = 'executable',
+        command = 'pwsh', -- PowerShell-Shell
+        args = {
+          '-Command',
+          [[& {
+          Import-Module PowerShellEditorServices;
+          Start-EditorServices -HostName 'nvim' -HostProfileId 0 -HostVersion '0.1.0' -LogPath '$HOME/.local/share/nvim/lsp_log' -SessionDetailsPath '$HOME/.local/share/nvim/sessions/powershell.session.json' -FeatureFlags @() -AdditionalModules @() -BundledModulesPath '/path/to/PowerShellEditorServices' -EnableConsoleRepl;
+        }]],
+        },
+      }
+
+      dap.configurations.powershell = {
+        {
+          type = 'powershell',
+          request = 'launch',
+          name = 'PowerShell Launch Script',
+          script = function()
+            return vim.fn.input('Path to script: ', vim.fn.getcwd() .. '/', 'file')
           end,
         },
       }
@@ -470,6 +495,22 @@ require('lazy').setup({
           organize_imports_on_format = true, -- Automatically organize imports on formatting
           enable_import_completion = true, -- Provide completions for `using` statements
           semantic_tokens = true, -- Enable semantic highlighting
+        },
+
+        -- PowerShell configuration
+        powershell_es = {
+          cmd = { 'pwsh', '-NoLogo', '-NoProfile', '-Command', 'PowerShellEditorServices/Start-EditorServices.ps1' },
+          filetypes = { 'ps1', 'psm1', 'psd1' },
+          root_dir = require('lspconfig').util.root_pattern('.git', '*.ps1'),
+          capabilities = capabilities,
+          settings = {
+            powershell = {
+              codeFormatting = {
+                autoCorrectAliases = true,
+                useCorrectCasing = true,
+              },
+            },
+          },
         },
       }
 
