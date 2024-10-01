@@ -43,6 +43,7 @@ require('lazy').setup({
   { 'nvim-lua/plenary.nvim' },
   { 'PProvost/vim-ps1' },
   { 'nvim-lua/lsp-status.nvim' },
+  { 'TheLeoP/powershell.nvim' },
   {
     'mfussenegger/nvim-dap',
     config = function()
@@ -71,8 +72,9 @@ require('lazy').setup({
       -- Konfiguration für PowerShell (PSES - PowerShell Editor Services)
       dap.adapters.powershell = {
         type = 'executable',
-        command = 'pwsh', -- PowerShell-Shell
+        command = 'pwsh', -- oder 'powershell' je nach deiner Installation
         args = {
+          '-NoProfile',
           '-Command',
           [[& {
           Import-Module PowerShellEditorServices;
@@ -89,6 +91,9 @@ require('lazy').setup({
           script = function()
             return vim.fn.input('Path to script: ', vim.fn.getcwd() .. '/', 'file')
           end,
+          cwd = '${workspaceFolder}',
+          args = {},
+          stopOnEntry = false,
         },
       }
 
