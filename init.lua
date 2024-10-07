@@ -53,9 +53,9 @@ require('lazy').setup({
           '-NoProfile',
           '-Command',
           [[& {
-          Import-Module PowerShellEditorServices;
-          Start-EditorServices -HostName 'nvim' -HostProfileId 0 -HostVersion '0.1.0' -LogPath '$HOME/.local/share/nvim/lsp_log' -SessionDetailsPath '$HOME/.local/share/nvim/sessions/powershell.session.json' -FeatureFlags @() -AdditionalModules @() -BundledModulesPath '/path/to/PowerShellEditorServices' -EnableConsoleRepl;
-        }]],
+      Import-Module PowerShellEditorServices;
+      Start-EditorServices -HostName 'nvim' -HostProfileId 0 -HostVersion '0.1.0' -LogPath "$HOME/.local/share/nvim/lsp_log" -SessionDetailsPath "$HOME/.local/share/nvim/sessions/powershell.session.json" -FeatureFlags @() -BundledModulesPath '/path/to/PowerShellEditorServices' -EnableConsoleRepl;
+    }]],
         },
       }
 
@@ -480,7 +480,7 @@ require('lazy').setup({
 
         -- PowerShell configuration
         powershell_es = {
-          cmd = { 'pwsh', '-NoLogo', '-NoProfile', '-Command', 'PowerShellEditorServices/Start-EditorServices.ps1' },
+          cmd = { 'pwsh', '-NoLogo', '-NoProfile', '-Command', tools_path .. '/PowerShellEditorServices/PowerShellEditorServices/Start-EditorServices.ps1' },
           filetypes = { 'ps1', 'psm1', 'psd1' },
           root_dir = require('lspconfig').util.root_pattern('.git', '*.ps1'),
           capabilities = capabilities,
