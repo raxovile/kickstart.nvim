@@ -19,19 +19,24 @@ require('lazy').setup({
   { 'nvim-lua/plenary.nvim' },
   { 'PProvost/vim-ps1' },
   { 'nvim-lua/lsp-status.nvim' },
+  { 'rcarriga/nvim-dap-ui' },
+  { 'tpope/vim-fugitive' },
+  { 'KaiWalter/azure-functions.nvim' },
+  { 'dense-analysis/ale' },
   { 'TheLeoP/powershell.nvim' },
+  { 'Bilal2453/luvit-meta', lazy = true },
   {
     'mfussenegger/nvim-dap',
     config = function()
       local dap = require 'dap'
 
       -- Halber Pfad zu den Tools
-      local tools_base_path = os.getenv 'TOOLS'
+      local tools_path = os.getenv 'TOOLS'
 
       -- Konfiguration für .NET (netcoredbg)
       dap.adapters.coreclr = {
         type = 'executable',
-        command = tools_base_path .. '/netcoredbg/netcoredbg', -- Pfad vervollständigen
+        command = tools_path .. '/netcoredbg/netcoredbg', -- Pfad vervollständigen
         args = { '--interpreter=vscode' },
       }
       dap.configurations.cs = {
@@ -48,13 +53,15 @@ require('lazy').setup({
       -- Konfiguration für PowerShell (PSES - PowerShell Editor Services)
       dap.adapters.powershell = {
         type = 'executable',
-        command = 'pwsh', -- oder 'powershell' je nach deiner Installation
+        command = 'pwsh', -- or 'powershell'
         args = {
           '-NoProfile',
           '-Command',
           [[& {
       Import-Module PowerShellEditorServices;
-      Start-EditorServices -HostName 'nvim' -HostProfileId 0 -HostVersion '0.1.0' -LogPath "$HOME/.local/share/nvim/lsp_log" -SessionDetailsPath "$HOME/.local/share/nvim/sessions/powershell.session.json" -FeatureFlags @() -BundledModulesPath '/path/to/PowerShellEditorServices' -EnableConsoleRepl;
+      Start-EditorServices -HostName 'nvim' -HostProfileId 0 -HostVersion '0.1.0' -LogPath "$HOME/.local/share/nvim/lsp_log" -SessionDetailsPath "$HOME/.local/share/nvim/sessions/powershell.session.json" -FeatureFlags @() -BundledModulesPath ']]
+            .. tools_path
+            .. [[/PowerShellEditorServices/PowerShellEditorServices' -EnableConsoleRepl;
     }]],
         },
       }
@@ -72,6 +79,8 @@ require('lazy').setup({
           stopOnEntry = false,
         },
       }
+
+      dap.configurations.ps1 = dap.configurations.powershell
 
       -- Keybindings für nvim-dap
       vim.api.nvim_set_keymap('n', '<F5>', "<Cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true })
@@ -95,11 +104,6 @@ require('lazy').setup({
       vim.api.nvim_set_keymap('n', '<Leader>dl', "<Cmd>lua require'dap'.run_last()<CR>", { noremap = true, silent = true })
     end,
   },
-  { 'rcarriga/nvim-dap-ui' },
-  { 'tpope/vim-fugitive' },
-  { 'KaiWalter/azure-functions.nvim' },
-  { 'dense-analysis/ale' },
-  { 'Bilal2453/luvit-meta', lazy = true },
   {
     'lewis6991/gitsigns.nvim',
     opts = {
